@@ -22,7 +22,7 @@ namespace InformationManagement.Aplication.Core.Administration.Employees.Service
             _employeeRepo = employeeRepo;
             _areaRepo = areaRepo;
         }
-       
+
         public Task<bool> DeleteEmploye(EmployeeDto request)
         {
             ValidateDataNotNull(request);
@@ -80,16 +80,36 @@ namespace InformationManagement.Aplication.Core.Administration.Employees.Service
 
             var employeeGetAll = _employeeRepo
                .GetAll<EmployeeEntity>();
-            var codeIdexist = employeeGetAll.Where(c=>c.EmployeeCode == request.EmployeeCode && c.EmployeeId == request.EmployeeId);
+
+
+            var codeIdexist = employeeGetAll.Where(c => c.EmployeeCode == request.EmployeeCode && c.EmployeeId == request.EmployeeId);
 
             var nameExist = employeeGetAll.Where(n => n.FirstName == request.FirstName && n.FirstLastName == request.FirstLastName
-                                                    && n.SecondName == request.SecondName && n.SecondLastName == request.SecondLastName);
+                                                   && n.SecondName == request.SecondName && n.SecondLastName == request.SecondLastName);
 
-            if(codeIdexist.Any())
+            //var employeeNaturalPerson = employeeGetAll.Where(j => j.KindOfPerson.ToString().ToLower().Equals("Juridica".ToLower())
+                                                                //|| request.TypePerson.ToString().ToLower().Equals("Juridica".ToLower()));
+
+            //var employeeHaveNit = employeeGetAll.Where(n => n.KindOfPerson.ToString().ToLower().Equals("Nit".ToLower())
+                                                                //|| request.TypePerson.ToString().ToLower().Equals("Nit".ToLower()));
+
+            if (codeIdexist.Any())
                 throw new CodeIdEmployeeAlreadyExist();
 
             if (nameExist.Any())
                 throw new NameEmployeeAlreadyExist();
+
+            if (request.DateOfBirth == null || request.SignUpDate == null || request.DateOfBirth == default || request.SignUpDate == default)
+                throw new DateCreationNotExist();
+
+            //request.TypePerson.ToString().ToLower().Equals("Nit".ToLower()
+            //if (employeeNaturalPerson.Any())
+            //    throw new EmployeeIsNotLegalPerson();
+            if (request.TypePerson.ToString().ToLower().Equals("Juridica".ToLower()))
+                 throw new EmployeeIsNotLegalPerson();
+
+            if (request.TypeDocument.ToString().ToLower().Equals("Nit".ToLower()))
+                throw new EmployeeHaveNotNit();
 
             var response = await _employeeRepo.Insert(_mapper.Map<EmployeeEntity>(request)).ConfigureAwait(false);
 

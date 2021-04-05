@@ -1,11 +1,15 @@
 ﻿using GestionInformacion.Infraestructura.Datos.Persistencia.Core.Base.Configuration;
 using InformationManagement.Aplication.Core.Administration.Areas;
+using InformationManagement.Aplication.Core.Administration.Clients.FacadeClientService;
 using InformationManagement.Aplication.Core.Administration.Clients.Services;
 using InformationManagement.Aplication.Core.Administration.Documents.FacadeDocumentService;
 using InformationManagement.Aplication.Core.Administration.Documents.Services;
 using InformationManagement.Aplication.Core.Administration.Employees.FacadeEmployeeService;
 using InformationManagement.Aplication.Core.Administration.Employees.Services;
 using InformationManagement.Aplication.Core.Administration.FacadeAreaService;
+using InformationManagement.Aplication.Core.Administration.Integration.Configuration;
+using InformationManagement.Aplication.Core.Administration.Providers.FacadeProviderService;
+using InformationManagement.Aplication.Core.Administration.Providers.FacadeService;
 using InformationManagement.Aplication.Core.Administration.Providers.Services;
 using InformationManagement.Aplication.Core.Mapper.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +24,8 @@ namespace InformationManagement.Aplication.Core.Administration.Administration.Co
             services.TryAddTransient<IFacadeServiceDocument, FacadeServiceDocument>();
             services.TryAddTransient<IFacadeServiceArea, FacadeServiceArea>();
             services.TryAddTransient<IFacadeServiceEmployee, FacadeServiceEmployee>();
+            services.TryAddTransient<IFacadeServiceClient, FacadeServiceClient>();
+            services.TryAddTransient<IFacadeServiceProvider, FacadeServiceProvider>();
 
             services.TryAddTransient<IAreaService, AreaService>();
             services.TryAddTransient<IDocumentService, DocumentService>();
@@ -29,6 +35,7 @@ namespace InformationManagement.Aplication.Core.Administration.Administration.Co
 
             services.ConfigureMapper();
             services.ConfigureBaseRepository(settings);
+            services.ConfigureIntegrationService();
         }
     }
 }

@@ -13,6 +13,11 @@ namespace InformationManagement.Dominio.Core.Administracion.Personas
         public Guid IdProvider { get; set; }
         [Required]
         public string CompanyName { get; set; }
+
+        //NitCompany 
+        [Required]
+        public Guid NitCompany { get; set; }
+
         [Required]
         public long ContactNumber { get; set; }
 

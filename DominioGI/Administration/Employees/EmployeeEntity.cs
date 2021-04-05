@@ -13,11 +13,11 @@ namespace InformationManagement.Dominio.Core.Administracion.Personas
 
         [Required]
         public Guid EmployeeCode { get; set; }
-        public override KindOfPerson KindOfPerson => KindOfPerson.Natural;
+        
         
         public double Salary { get; set; }
         //falta migrar
-        public string job { get; set; }
+        public string Job { get; set; }
 
         //RELACION CON EL AREA
         public Guid AreaId { get; set; }

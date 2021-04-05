@@ -1,10 +1,7 @@
 ﻿using InformationManagement.Aplication.Core.Administration.Areas;
-using InformationManagement.Aplication.Core.Administration.FacadeAreaService;
 using InformationManagement.Aplication.Dto.Administration.Areas;
-using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace InformationManagement.Aplication.Core.Administration.FacadeAreaService

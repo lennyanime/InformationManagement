@@ -8,6 +8,7 @@ namespace InformationManagement.Aplication.Dto.Administration.Documents
         public Guid TypeIdentificationId { get; set; }
         public string IdentificationName { get; set; }
 
+        public virtual TypeDocument TypeDocument {get; set;}
         
     }
     public enum TypeDocument

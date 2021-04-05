@@ -13,9 +13,22 @@ namespace InformationManagement.Dominio.Core.Administracion.Documento
     {
         [Key]
         public Guid TypeIdentificationId { get; set; }
+        
         public string IdentificationName { get; set; }
+
+        public virtual TypeDocument TypeDocument { get; set; }
+
         public IEnumerable<ProviderEntity> ProvidersList { get; set; }
         public IEnumerable<ClientEntity> ClientsList { get; set; }
         public IEnumerable<EmployeeEntity> EmployeesList { get; set; }
+       
+
     }
+    public enum TypeDocument
+    {
+        cedula = 1,
+        pasaporte = 2,
+        nit = 3
+    }
+
 }

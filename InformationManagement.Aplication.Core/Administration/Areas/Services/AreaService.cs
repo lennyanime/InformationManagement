@@ -27,12 +27,14 @@ namespace InformationManagement.Aplication.Core.Administration.Areas
         {
             ValidationFields(request);
 
-            //var employeeExist = _employeeRepo
-            //    .SearchMatching<EmployeeEntity>(e => e.EmployeeId == request.ResponsableEmployedId).Any();
-            //if (!employeeExist)
-            //    throw new AreaIdEmployeedNotExistException();
-            if(request.ResponsableEmployedId == default)
-                throw new AreaIdEmployeedNotExistException();
+            if (request.ResponsableEmployedId == null || request.ResponsableEmployedId == default || request.AreaId == null || request.AreaId == default || request.AreaName == null || request.AreaName == default)
+                throw new EmployeedNotExistInArea();
+
+            var employeeExistInAnArea = _areaRepo
+                .SearchMatching<AreaEntity>(e => e.ResponsableEmployedId == request.ResponsableEmployedId);
+
+            if (employeeExistInAnArea.Any())
+                throw new TheEmployeedAlreadyIsInAnArea();
 
             var response = await _employeeRepo.Insert(_mapper.Map<AreaEntity>(request)).ConfigureAwait(false);
             return _mapper.Map<AreaDto>(response);
@@ -49,7 +51,7 @@ namespace InformationManagement.Aplication.Core.Administration.Areas
             if (employeeExist)
                 throw new EmployeeExistInAreaException(request.AreaId);
 
-            var response =  _areaRepo.Delete(_mapper.Map<AreaEntity>(deleteArea));
+            var response = _areaRepo.Delete(_mapper.Map<AreaEntity>(deleteArea));
             return Task.FromResult(response);
         }
 
@@ -63,7 +65,7 @@ namespace InformationManagement.Aplication.Core.Administration.Areas
 
         }
 
-        public Task<AreaDto> SearchAreaById(AreaDto request) 
+        public Task<AreaDto> SearchAreaById(AreaDto request)
         {
             ValidationFields(request);
 
@@ -82,6 +84,6 @@ namespace InformationManagement.Aplication.Core.Administration.Areas
         {
             if (request == null)
                 throw new ArgumentNullException();
-        }        
+        }
     }
 }

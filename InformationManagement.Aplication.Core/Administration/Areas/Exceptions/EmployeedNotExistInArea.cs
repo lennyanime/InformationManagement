@@ -2,14 +2,14 @@
 
 namespace InformationManagement.Aplication.Core.Administration.Exceptions.Areas
 {
-    public class AreaIdEmployeedNotExistException:ExceptionIM
+    public class EmployeedNotExistInArea:ExceptionIM
     {
-        public AreaIdEmployeedNotExistException()
+        public EmployeedNotExistInArea()
         {
 
         }
 
-        public AreaIdEmployeedNotExistException(string message):base(message)
+        public EmployeedNotExistInArea(string message):base(message)
         {
 
         }

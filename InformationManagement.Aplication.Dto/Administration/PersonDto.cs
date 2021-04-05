@@ -5,8 +5,9 @@ namespace InformationManagement.Aplication.Dto.Administration
 {
     public class PersonDto : DataTransferObject
     {
-        public long IdNumber { get; set; }
+        public long DocumentNumber { get; set; }
         public DateTimeOffset DateOfBirth { get; set; }
+        public virtual Type_Document TypeDocument { get; set; }
         public virtual TypeOfPerson TypePerson { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
@@ -16,8 +17,15 @@ namespace InformationManagement.Aplication.Dto.Administration
     }
     public enum TypeOfPerson
     {
-        Natural = 1,
-        Juridica = 2
+        Natural ,
+        Juridica ,
+    }
+
+    public enum Type_Document
+    {
+        Cedula,
+        Pasaporte,
+        Nit
     }
 }
 

@@ -19,10 +19,11 @@ namespace InformationManagement.Aplication.Core.Administration.Documents.Service
             _mapper = mapper;
             _documentRepositorio = documentRepositorio;
         }
-        public Task<DocumentDto> AddDocument(DocumentDto request)
+        public async Task<DocumentDto> AddDocument(DocumentDto request)
         {
             ValidationFields(request);
-            throw new System.NotImplementedException();
+            var response = await _documentRepositorio.Insert(_mapper.Map<DocumentTypeEntity>(request)).ConfigureAwait(false);
+            return _mapper.Map<DocumentDto>(response);
         }
 
         public Task<bool> DeleteDocument(DocumentDto request)

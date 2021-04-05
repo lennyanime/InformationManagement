@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
 
-namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Areas
+namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Areas.UnitTestAreas
 {
     public class AreaTest
     {
@@ -40,9 +40,14 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Areas
         public async Task Employee_In_Production_Not_Exist()
         {
             var areaRepoMock = new Mock<IEmployeeRepositorio>();
-            areaRepoMock
-                .Setup(e => e.SearchMatching(It.IsAny<Expression<Func<EmployeeEntity, bool>>>()))
-                .Returns(new List<EmployeeEntity>());
+            //areaRepoMock
+            //    .Setup(e => e.SearchMatching(It.IsAny<Expression<Func<EmployeeEntity, bool>>>()))
+            //    .Returns(new List<EmployeeEntity> { new EmployeeEntity
+            //    {
+            //        EmployeeId= Guid.Parse("de9af5f7-3279-465e-a608-961e635ae2e3"),
+
+
+            //    } });
 
             var service = new ServiceCollection();
             service.AddTransient(_ => areaRepoMock.Object);
@@ -50,18 +55,53 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Areas
             var provider = service.BuildServiceProvider();
             var areaService = provider.GetRequiredService<IAreaService>();
 
-            var response = areaService.AddArea(new AreaDto
+            var response = new AreaDto
             {
-                ResponsableEmployedId = Guid.NewGuid(),
+                ResponsableEmployedId = default,
 
-                AreaName = "Área_1"
+                AreaName = default,
 
-            });
+                AreaId = default,
 
-            areaRepoMock.Verify(a => a.SearchMatching(It.IsAny<Expression<Func<EmployeeEntity, bool>>>()), Times.Once);
-            await Assert.ThrowsAsync<AreaIdEmployeedNotExistException>(() => response).ConfigureAwait(false);
+            };
+
+            await Assert.ThrowsAsync<EmployeedNotExistInArea>(() => areaService.AddArea(response)).ConfigureAwait(false);
         }
 
+        [Fact]
+        [UnitTest]
+
+        public async Task Employeed_Assigned_To_An_Only_Area()
+        {
+            var areaRepoMock = new Mock<IAreaRepositorio>();
+            areaRepoMock
+                .Setup(id => id.SearchMatching(It.IsAny<Expression<Func<AreaEntity, bool>>>()))
+                .Returns(new List<AreaEntity>() { new AreaEntity{
+
+                    ResponsableEmployedId = Guid.Parse("de9af5f7-3279-465e-a608-961e635ae2e2"),
+                    AreaId = Guid.Parse("ee98a9db-1443-4491-b470-cca353138808"),
+                    AreaName = "Área1"
+                }});
+
+           
+            var service = new ServiceCollection();
+            service.AddTransient(_ => areaRepoMock.Object);
+            service.ConfigureAdministrationService(new DbSettings());
+            var provider = service.BuildServiceProvider();
+            var areaService = provider.GetRequiredService<IAreaService>();
+
+            var response = new AreaDto
+            {
+                ResponsableEmployedId = Guid.Parse("de9af5f7-3279-465e-a608-961e635ae2e2"),
+
+                AreaName = "Área 721",
+
+                AreaId = Guid.Parse("6e80402f-20c1-4a3d-9130-afcda32568ed")
+
+            };
+
+            await Assert.ThrowsAsync<TheEmployeedAlreadyIsInAnArea>(() => areaService.AddArea(response)).ConfigureAwait(false);
+        }
 
         [Fact]
         [UnitTest]

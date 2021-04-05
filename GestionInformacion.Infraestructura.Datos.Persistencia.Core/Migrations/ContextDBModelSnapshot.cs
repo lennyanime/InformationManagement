@@ -19,7 +19,7 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DominioGI.Administracion.Documento.DocumentTypeEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Administracion.Documento.DocumentTypeEntity", b =>
                 {
                     b.Property<Guid>("TypeIdentificationId")
                         .ValueGeneratedOnAdd()
@@ -28,12 +28,15 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.Property<string>("IdentificationName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TypeDocument")
+                        .HasColumnType("int");
+
                     b.HasKey("TypeIdentificationId");
 
                     b.ToTable("Document");
                 });
 
-            modelBuilder.Entity("DominioGI.Administracion.Personas.EmployeeEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Administracion.Personas.EmployeeEntity", b =>
                 {
                     b.Property<Guid>("EmployeeId")
                         .ValueGeneratedOnAdd()
@@ -44,6 +47,9 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
 
                     b.Property<DateTimeOffset>("DateOfBirth")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<long>("DocumentNumber")
+                        .HasColumnType("bigint");
 
                     b.Property<Guid>("DocumentTypeId")
                         .HasColumnType("uniqueidentifier");
@@ -56,9 +62,6 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("IdNumber")
-                        .HasColumnType("bigint");
 
                     b.Property<int>("KindOfPerson")
                         .HasColumnType("int");
@@ -75,6 +78,9 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.Property<DateTimeOffset>("SignUpDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int>("TypeDocument")
+                        .HasColumnType("int");
+
                     b.Property<string>("job")
                         .HasColumnType("nvarchar(max)");
 
@@ -87,7 +93,7 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.ToTable("Employee");
                 });
 
-            modelBuilder.Entity("DominioGI.Administracion.Personas.ProviderEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Administracion.Personas.ProviderEntity", b =>
                 {
                     b.Property<Guid>("IdProvider")
                         .ValueGeneratedOnAdd()
@@ -103,20 +109,23 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.Property<DateTimeOffset>("DateOfBirth")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<long>("DocumentNumber")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("FirstLastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("IdNumber")
-                        .HasColumnType("bigint");
-
                     b.Property<Guid>("KindOfIdentificationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("KindOfPerson")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("Nit")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("ProviderIdTypeIdentificationId")
                         .HasColumnType("uniqueidentifier");
@@ -130,6 +139,9 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.Property<DateTimeOffset>("SignUpDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int>("TypeDocument")
+                        .HasColumnType("int");
+
                     b.HasKey("IdProvider");
 
                     b.HasIndex("ProviderIdTypeIdentificationId");
@@ -137,11 +149,15 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.ToTable("Provider");
                 });
 
-            modelBuilder.Entity("DominioGI.Administration.Person.ClientEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Administration.Person.ClientEntity", b =>
                 {
                     b.Property<Guid>("ClientId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ClientName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("DateOfBirth")
                         .HasColumnType("datetimeoffset");
@@ -149,14 +165,14 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.Property<Guid?>("DocumentIdTypeIdentificationId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<long>("DocumentNumber")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("FirstLastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("IdNumber")
-                        .HasColumnType("bigint");
 
                     b.Property<Guid>("IdentificationId")
                         .HasColumnType("uniqueidentifier");
@@ -173,6 +189,9 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.Property<DateTimeOffset>("SignUpDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int>("TypeDocument")
+                        .HasColumnType("int");
+
                     b.HasKey("ClientId");
 
                     b.HasIndex("DocumentIdTypeIdentificationId");
@@ -180,7 +199,7 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.ToTable("Client");
                 });
 
-            modelBuilder.Entity("DominioGI.Areas.AreaEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Areas.AreaEntity", b =>
                 {
                     b.Property<Guid>("AreaId")
                         .ValueGeneratedOnAdd()
@@ -199,15 +218,15 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.ToTable("Area");
                 });
 
-            modelBuilder.Entity("DominioGI.Administracion.Personas.EmployeeEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Administracion.Personas.EmployeeEntity", b =>
                 {
-                    b.HasOne("DominioGI.Areas.AreaEntity", "Area")
+                    b.HasOne("InformationManagement.Dominio.Core.Areas.AreaEntity", "Area")
                         .WithMany("AreaEmployees")
                         .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DominioGI.Administracion.Documento.DocumentTypeEntity", "DocumentType")
+                    b.HasOne("InformationManagement.Dominio.Core.Administracion.Documento.DocumentTypeEntity", "DocumentType")
                         .WithMany("EmployeesList")
                         .HasForeignKey("DocumentTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -218,25 +237,25 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.Navigation("DocumentType");
                 });
 
-            modelBuilder.Entity("DominioGI.Administracion.Personas.ProviderEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Administracion.Personas.ProviderEntity", b =>
                 {
-                    b.HasOne("DominioGI.Administracion.Documento.DocumentTypeEntity", "ProviderId")
+                    b.HasOne("InformationManagement.Dominio.Core.Administracion.Documento.DocumentTypeEntity", "ProviderId")
                         .WithMany("ProvidersList")
                         .HasForeignKey("ProviderIdTypeIdentificationId");
 
                     b.Navigation("ProviderId");
                 });
 
-            modelBuilder.Entity("DominioGI.Administration.Person.ClientEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Administration.Person.ClientEntity", b =>
                 {
-                    b.HasOne("DominioGI.Administracion.Documento.DocumentTypeEntity", "DocumentId")
+                    b.HasOne("InformationManagement.Dominio.Core.Administracion.Documento.DocumentTypeEntity", "DocumentId")
                         .WithMany("ClientsList")
                         .HasForeignKey("DocumentIdTypeIdentificationId");
 
                     b.Navigation("DocumentId");
                 });
 
-            modelBuilder.Entity("DominioGI.Administracion.Documento.DocumentTypeEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Administracion.Documento.DocumentTypeEntity", b =>
                 {
                     b.Navigation("ClientsList");
 
@@ -245,7 +264,7 @@ namespace GestionInformacion.Infraestructura.Datos.Persistencia.Core.Migrations
                     b.Navigation("ProvidersList");
                 });
 
-            modelBuilder.Entity("DominioGI.Areas.AreaEntity", b =>
+            modelBuilder.Entity("InformationManagement.Dominio.Core.Areas.AreaEntity", b =>
                 {
                     b.Navigation("AreaEmployees");
                 });

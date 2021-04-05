@@ -4,21 +4,21 @@ using System.Runtime.Serialization;
 namespace InformationManagement.Aplication.Core.Administration.Employees.Services
 {
     [Serializable]
-    internal class CodeIdEmployeeAlreadyExist : Exception
+    internal class NameEmployeeAlreadyExist : Exception
     {
-        public CodeIdEmployeeAlreadyExist()
+        public NameEmployeeAlreadyExist()
         {
         }
 
-        public CodeIdEmployeeAlreadyExist(string message) : base(message)
+        public NameEmployeeAlreadyExist(string message) : base(message)
         {
         }
 
-        public CodeIdEmployeeAlreadyExist(string message, Exception innerException) : base(message, innerException)
+        public NameEmployeeAlreadyExist(string message, Exception innerException) : base(message, innerException)
         {
         }
 
-        protected CodeIdEmployeeAlreadyExist(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected NameEmployeeAlreadyExist(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

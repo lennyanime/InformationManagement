@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
 
-namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Documents
+namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Documents.UnitTestDocuments
 {
 
     public class DocumentTest

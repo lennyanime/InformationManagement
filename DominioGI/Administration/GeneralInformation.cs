@@ -5,9 +5,10 @@ namespace InformationManagement.Dominio.Core.Administration
 {
     public abstract class GeneralInformation : EntidadBase
     {
-        public long IdNumber { get; set; }
+        public long DocumentNumber { get; set; }
         public DateTimeOffset DateOfBirth { get; set; }
         public virtual KindOfPerson KindOfPerson { get; set; }
+        public virtual TypeDocument TypeDocument { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string FirstLastName { get; set; }
@@ -16,8 +17,15 @@ namespace InformationManagement.Dominio.Core.Administration
     }
     public enum KindOfPerson
     {
-        Natural = 1,
-        Juridica = 2
+        Natural ,
+        Juridica 
+    }
+
+    public enum TypeDocument 
+    { 
+        Cedula,
+        Pasaporte,
+        Nit
     }
 }
 
