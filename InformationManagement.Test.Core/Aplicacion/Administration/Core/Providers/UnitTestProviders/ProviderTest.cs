@@ -40,10 +40,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Provide
         public async Task Provider_Employee_Can_Not_Have_Type_Identification_Nit()
         {
             var providerRepoMock = new Mock<IProviderRepositorio>();
-            //areaRepoMock
-            //    .Setup(e => e.SearchMatching(It.IsAny<Expression<Func<EmployeeEntity, bool>>>()))
-            //    .Returns(new List<EmployeeEntity>());
-
+            
             var service = new ServiceCollection();
             service.AddTransient(_ => providerRepoMock.Object);
             service.ConfigureAdministrationService(new DbSettings());
@@ -189,9 +186,6 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Provide
                 SecondLastName = "Bermúdez",
                 TypePerson = TypeOfPerson.Natural,
 
-
-                //DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
-                //SignUpDate = DateTimeOffset.Parse("12-02-2020"),
             };
 
             await Assert.ThrowsAsync<DateCreationNotExistForProvider>(() => providerService.AddProvider(providers)).ConfigureAwait(false);
@@ -256,13 +250,11 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Provide
                 new ProviderEntity
                 {
                     IdProvider = Guid.Parse("3dcf7212-0984-4f61-b2b3-8f1c12120fec"),
-                    //job = "Admin",
                     FirstName = "Lenny",
                     SecondName = "Alexander",
                     FirstLastName = "Trejos",
                     SecondLastName = "Bermúez",
                     KindOfPerson = KindOfPerson.Natural,
-                    //Salary = 1000000,
                     DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
                     SignUpDate = DateTimeOffset.Parse("12-02-2020"),
                     TypeDocument = TypeDocument.Nit,
@@ -283,13 +275,11 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Provide
             var providers = new ProviderDto
             {
                 IdProvider = Guid.Parse("3dcf7212-0984-4f61-b2b3-8f1c12120fec"),
-                //job = "Admin",
                 FirstName = "Lenn",
                 SecondName = "Alexander",
                 FirstLastName = "Trejos",
                 SecondLastName = "Bermúdez",
                 TypePerson = TypeOfPerson.Natural,
-                //Salary = 1000000,
                 DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
                 SignUpDate = DateTimeOffset.Parse("12-02-2020"),
                 CompanyName = "SYP",

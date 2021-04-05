@@ -53,7 +53,6 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Documen
             {
 
                 TypeIdentificationId = Guid.Parse("b554aa99-203f-4930-8b4c-ecd51affef56"),
-                //IdentificationName = TypeDocument.cedula
 
             });
         }

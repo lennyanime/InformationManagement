@@ -34,55 +34,6 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Emplead
             await Assert.ThrowsAsync<ArgumentNullException>(() => employeeService.SearchByIdEmployee(null)).ConfigureAwait(false);
         }
 
-        //[Fact]
-        //[UnitTest]
-        //public async Task Employee_With_Unique_Code_And_Assigned_To_An_Area()
-        //{
-        //    var employeeRepoMock = new Mock<IEmployeeRepositorio>();
-        //    employeeRepoMock
-        //        .Setup(e => e.SearchMatching(It.IsAny<Expression<Func<EmployeeEntity, bool>>>()))
-        //        .Returns(new List<EmployeeEntity>() { new EmployeeEntity 
-        //        {
-        //            EmployeeCode = Guid.Parse("ee98a9db-1443-4491-b470-cca353138808"),
-        //            EmployeeId = Guid.Parse("ee98a9db-1443-4491-b470-cca353138848"),
-        //            job = "Admin",
-        //            FirstName = "Lenny",
-        //            SecondName = "Alexander",
-        //            FirstLastName = "Trejos",
-        //            SecondLastName = "Bermúdez",
-        //            KindOfPerson = KindOfPerson.Natural,
-        //            Salary = 1000000,
-        //            DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
-        //            SignUpDate = DateTimeOffset.Parse("12-02-2020"),
-        //            AreaId = Guid.Parse("8dd50b8b-5718-4c15-bdc8-ca72e3efb04f"),
-        //        } });
-
-        //    var service = new ServiceCollection();
-        //    service.ConfigureAdministrationService(new DbSettings());
-        //    service.AddTransient(_ => employeeRepoMock.Object);
-        //    var provider = service.BuildServiceProvider();
-        //    var employeeService = provider.GetRequiredService<IEmployeeService>();
-
-        //    var employee = new EmployeeDto
-        //    {
-        //        EmployeeCode = Guid.Parse("ee98a9db-1443-4491-b470-cca353138808"),
-        //        EmployeeId = Guid.Parse("ee98a9db-1443-4491-b470-cca353138848"),
-        //        job = "Admin",
-        //        FirstName = "Lenny",
-        //        SecondName = "Alexander",
-        //        FirstLastName = "Trejos",
-        //        SecondLastName = "Bermúdez",
-        //        TypePerson = TypeOfPerson.Natural,
-        //        Salary = 1000000,
-        //        DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
-        //        SignUpDate = DateTimeOffset.Parse("12-02-2020"),
-        //        AreaId = Guid.Parse("8dd50b8b-5718-4c15-bdc8-ca72e3efb04f"),
-        //    };
-
-        //    //var response = await employeeService.AddEmployee(employee).ConfigureAwait(false);
-        //    await Assert.ThrowsAsync<>(() => employeeService.AddEmployee(employee)).ConfigureAwait(false);
-        //}
-
         [Fact]
         [UnitTest]
         public async Task Name_Employeed_Already_Exist()
@@ -193,28 +144,6 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Emplead
         {
             var employeeRepoMock = new Mock<IEmployeeRepositorio>();
             
-            //     var listEmployee = new List<EmployeeEntity>
-            //    {
-            //        new EmployeeEntity
-            //        {
-            //            EmployeeCode = Guid.Parse("ee98a9db-1443-4491-b470-cca353138809"),
-            //            EmployeeId = Guid.Parse("ee98a9db-1443-4491-b470-cca353138843"),
-            //            job = "Admin",
-            //            FirstName = "Len",
-            //            SecondName = "Alexand",
-            //            FirstLastName = "Trej",
-            //            SecondLastName = "Bermúd",
-            //            KindOfPerson = KindOfPerson.Juridica,
-            //            Salary = 1000000,
-            //            DateOfBirth = DateTimeOffset.Parse("28-05-1993"),
-            //            SignUpDate = DateTimeOffset.Parse("12-02-2019"),
-            //        }
-            //    };
-
-            //employeeRepoMock
-            //    .Setup(e => e.GetAll<EmployeeEntity>())
-            //    .Returns(listEmployee);
-
             var service = new ServiceCollection();
             service.ConfigureAdministrationService(new DbSettings());
             service.AddTransient(_ => employeeRepoMock.Object);
@@ -285,8 +214,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Emplead
                 SecondLastName = "Bermúdez",
                 TypePerson = TypeOfPerson.Natural,
                 Salary = 1000000,
-                //DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
-                //SignUpDate = DateTimeOffset.Parse("12-02-2020"),
+                
             };
 
             await Assert.ThrowsAsync<DateCreationNotExist>(() => employeeService.AddEmployee(employee)).ConfigureAwait(false);
@@ -298,29 +226,6 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Emplead
         public async Task Employee_Can_Not_Have_Nit()
         {
             var employeeRepoMock = new Mock<IEmployeeRepositorio>();
-
-            //var listEmployee = new List<EmployeeEntity>
-            //    {
-            //        new EmployeeEntity
-            //        {
-            //            EmployeeCode = Guid.Parse("ee98a9db-1443-4491-b470-cca353138806"),
-            //            EmployeeId = Guid.Parse("ee98a9db-1443-4491-b470-cca353138846"),
-            //            job = "Admin",
-            //            FirstName = "Lenny",
-            //            SecondName = "Alexander",
-            //            FirstLastName = "Trejos",
-            //            SecondLastName = "Bermúdez",
-            //            KindOfPerson = KindOfPerson.Natural,
-            //            KindDocument = KindDocument.Cedula,
-            //            Salary = 1000000,
-            //            DateOfBirth = DateTimeOffset.Parse("28-05-1991"),
-            //            SignUpDate = DateTimeOffset.Parse("12-02-2021"),
-            //        }
-            //    };
-
-            //employeeRepoMock
-            //    .Setup(e => e.GetAll<EmployeeEntity>());
-                //.Returns(listEmployee);
 
             var service = new ServiceCollection();
             service.ConfigureAdministrationService(new DbSettings());
@@ -376,8 +281,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Emplead
             };
 
             var response = await employeeIdService.SearchByIdEmployee(employee).ConfigureAwait(false);
-            //Assert.Equal("9181b7a4-cf93-47ff-ae3e-7c6cc7c66ba8" , employee.EmployeeCode);
-            //Assert.Equal(employee.EmployeeId , response.EmployeeId);
+            
         }
 
         [Fact]
@@ -403,7 +307,6 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Emplead
             var service = new ServiceCollection();
             service.ConfigureAdministrationService(new DbSettings());
             service.AddTransient(_ => employeeRepoMock.Object);
-            //service.AddTransient(_ => areaRepoMock.Object);
             var provider = service.BuildServiceProvider();
             var employeeDeleteService = provider.GetRequiredService<IEmployeeService>();
 

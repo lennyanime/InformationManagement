@@ -40,15 +40,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Areas.U
         public async Task Employee_In_Production_Not_Exist()
         {
             var areaRepoMock = new Mock<IEmployeeRepositorio>();
-            //areaRepoMock
-            //    .Setup(e => e.SearchMatching(It.IsAny<Expression<Func<EmployeeEntity, bool>>>()))
-            //    .Returns(new List<EmployeeEntity> { new EmployeeEntity
-            //    {
-            //        EmployeeId= Guid.Parse("de9af5f7-3279-465e-a608-961e635ae2e3"),
-
-
-            //    } });
-
+         
             var service = new ServiceCollection();
             service.AddTransient(_ => areaRepoMock.Object);
             service.ConfigureAdministrationService(new DbSettings());
@@ -172,8 +164,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Areas.U
             var areaDeleteService = provider.GetRequiredService<IAreaService>();
 
             var response = await areaDeleteService.DeleteArea(new AreaDto()).ConfigureAwait(false);
-            //areaRepoMock.Verify(a => a.SearchMatching(It.IsIn<Expression<Func<AreaEntity, bool>>>(d => d.AreaId == Guid.NewGuid())), Times.Once);
-            //areaRepoMock.Verify(a => a.SearchMatching(It.IsIn<Expression<Func<EmployeeEntity, bool>>>(e => e.AreaId == Guid.NewGuid())), Times.Once);
+            
             areaRepoMock.Verify(d => d.Delete(It.IsAny<AreaEntity>()), Times.Once);
 
             Assert.True(response);
@@ -192,7 +183,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Areas.U
                     AreaId = Guid.Parse("ee98a9db-1443-4491-b470-cca353138808"),
                     AreaName = "Área1"
                 }});
-            //este es otro método
+           
             areaRepoMock
                 .Setup(a => a.Update(It.IsAny<AreaEntity>()))
                 .Returns(true);

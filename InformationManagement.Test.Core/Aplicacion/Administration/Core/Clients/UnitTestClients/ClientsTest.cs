@@ -25,10 +25,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Clients
         public async Task Client_Can_Not_Have_Type_Identification_Nit() 
         {
             var clientRepoMock = new Mock<IClientRepositorio>();
-            //clientRepoMock
-            //    .Setup(id => id.SearchMatching(It.IsAny<Expression<Func<ClientEntity, bool>>>()))
-            //    .Returns(new List<ClientEntity>());
-
+           
             var service = new ServiceCollection();
             service.AddTransient(_ => clientRepoMock.Object);
             service.ConfigureAdministrationService(new DbSettings());
@@ -62,16 +59,15 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Clients
                 {
                     
                     ClientId = Guid.Parse("ee98a9db-1443-4491-b470-cca353138848"),
-                    //job = "Admin",
+                  
                     FirstName = "Lenny",
                     SecondName = "Alexander",
                     FirstLastName = "Trejos",
                     SecondLastName = "Bermúez",
                     KindOfPerson = KindOfPerson.Natural,
-                    //Salary = 1000000,
                     DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
                     SignUpDate = DateTimeOffset.Parse("12-02-2020"),
-                    //TypeDocument = Type_Document.Nit,
+                    
                 }
             };
             clientRepoMock
@@ -87,13 +83,11 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Clients
             var client = new ClientDto
             {
                 ClientId = Guid.Parse("ee98a9db-1443-4491-b470-cca353138848"),
-                //job = "Admin",
                 FirstName = "Lenny",
                 SecondName = "Alexander",
                 FirstLastName = "Trejos",
                 SecondLastName = "Bermúdez",
-                TypePerson = TypeOfPerson.Natural,
-                //Salary = 1000000,
+                TypePerson = TypeOfPerson.Natural, 
                 DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
                 SignUpDate = DateTimeOffset.Parse("12-02-2020"),
             };

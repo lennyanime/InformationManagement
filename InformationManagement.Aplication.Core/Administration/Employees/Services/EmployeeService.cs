@@ -87,12 +87,6 @@ namespace InformationManagement.Aplication.Core.Administration.Employees.Service
             var nameExist = employeeGetAll.Where(n => n.FirstName == request.FirstName && n.FirstLastName == request.FirstLastName
                                                    && n.SecondName == request.SecondName && n.SecondLastName == request.SecondLastName);
 
-            //var employeeNaturalPerson = employeeGetAll.Where(j => j.KindOfPerson.ToString().ToLower().Equals("Juridica".ToLower())
-                                                                //|| request.TypePerson.ToString().ToLower().Equals("Juridica".ToLower()));
-
-            //var employeeHaveNit = employeeGetAll.Where(n => n.KindOfPerson.ToString().ToLower().Equals("Nit".ToLower())
-                                                                //|| request.TypePerson.ToString().ToLower().Equals("Nit".ToLower()));
-
             if (codeIdexist.Any())
                 throw new CodeIdEmployeeAlreadyExist();
 
@@ -102,9 +96,6 @@ namespace InformationManagement.Aplication.Core.Administration.Employees.Service
             if (request.DateOfBirth == null || request.SignUpDate == null || request.DateOfBirth == default || request.SignUpDate == default)
                 throw new DateCreationNotExist();
 
-            //request.TypePerson.ToString().ToLower().Equals("Nit".ToLower()
-            //if (employeeNaturalPerson.Any())
-            //    throw new EmployeeIsNotLegalPerson();
             if (request.TypePerson.ToString().ToLower().Equals("Juridica".ToLower()))
                  throw new EmployeeIsNotLegalPerson();
 
