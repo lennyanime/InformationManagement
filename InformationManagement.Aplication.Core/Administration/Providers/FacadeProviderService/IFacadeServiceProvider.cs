@@ -11,5 +11,9 @@ namespace InformationManagement.Aplication.Core.Administration.Providers.FacadeS
         public Task<ProviderDto> ProviderManagementDelete(ProviderDto requestDto);
         public Task<ProviderDto> ProviderManagementUpdate(ProviderDto requestDto);
         public Task<IEnumerable<ProviderDto>> ProviderManagementGetAll();
+
+        public Task<string> ProviderManagementExportAll();
+        public Task<IEnumerable<ProviderDto>> ProviderManagementImportAll();
+
     }
 }

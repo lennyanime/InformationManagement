@@ -53,5 +53,14 @@ namespace InformationManagement.Aplication.Core.Administration.Providers.FacadeP
                 StatusDescription = result ? "Ok" : "Error"
             };
         }
+
+        public async Task<string> ProviderManagementExportAll()
+        {
+            return await _providerService.ExportAll().ConfigureAwait(false);
+        }
+        public async Task<IEnumerable<ProviderDto>> ProviderManagementImportAll()
+        {
+            return await _providerService.ImportAll().ConfigureAwait(false);
+        }
     }
 }

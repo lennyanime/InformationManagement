@@ -35,5 +35,13 @@ namespace InformationManagement.WebApi.Controllers.ControllerFacadeProvider
         [HttpGet(nameof(GetAllProvider))]
         public async Task<IEnumerable<ProviderDto>> GetAllProvider() =>
             await _facadeProviderService.ProviderManagementGetAll().ConfigureAwait(false);
+
+        [HttpGet(nameof(ExportAllCliente))]
+        public async Task<string> ExportAllCliente() =>
+           await _facadeProviderService.ProviderManagementExportAll().ConfigureAwait(false);
+
+        [HttpGet(nameof(ImportAllCliente))]
+        public async Task<IEnumerable<ProviderDto>> ImportAllCliente() =>
+            await _facadeProviderService.ProviderManagementImportAll().ConfigureAwait(false);
     }
 }
