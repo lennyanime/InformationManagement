@@ -32,28 +32,28 @@ namespace InformationManagement.Aplication.Core.Administration.Providers.Service
 
             var nameCompanyExist = providerGetAll.Where(c => c.CompanyName == request.CompanyName);
 
-            var nitProviderExist = providerGetAll.Where(n => n.NitCompany == request.NitCompany);
+            var nitProviderExist = providerGetAll.Where(n => n.NitCompany == request.NitCompany );
 
-            
+            var idProviderEmployeeExist = providerGetAll.Where(id => id.IdProvider == request.IdProvider);
+
 
             if (nameEmployeeExist.Any())
                 throw new NameProviderAlreadyExist();
-           
+            
             if (request.TypeDocument.ToString().ToLower().Equals("Nit".ToLower()))
                 throw new ProviderEmployeeHaveNotNit();
             
             if (nameCompanyExist.Any())
                 throw new NameCompanyAlreadyExist();
-
-            
-
+           
             if (request.DateOfBirth == null || request.SignUpDate == null || request.DateOfBirth == default || request.SignUpDate == default)
                 throw new DateCreationNotExistForProvider();
+            
+            if (idProviderEmployeeExist.Any())
+               throw new IdProviderEmployeeAlreadyExist();
 
             if (nitProviderExist.Any())
                 throw new NitProviderAlreadyExist();
-
-
             var response = await _providerRepo.Insert(_mapper.Map<ProviderEntity>(request)).ConfigureAwait(false);
 
             return _mapper.Map<ProviderDto>(response);

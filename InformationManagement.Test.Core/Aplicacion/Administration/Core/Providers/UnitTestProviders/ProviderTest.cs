@@ -162,7 +162,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Provide
                 TypeDocument = Type_Document.Cedula,
                 DateOfBirth = DateTimeOffset.Parse("28-05-1991"),
                 SignUpDate = DateTimeOffset.Parse("12-02-2021"),
-                
+
             };
 
             await Assert.ThrowsAsync<NameCompanyAlreadyExist>(() => employeeService.AddProvider(providers)).ConfigureAwait(false);
@@ -188,7 +188,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Provide
                 FirstLastName = "Trejos",
                 SecondLastName = "Bermúdez",
                 TypePerson = TypeOfPerson.Natural,
-                
+
 
                 //DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
                 //SignUpDate = DateTimeOffset.Parse("12-02-2020"),
@@ -207,7 +207,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Provide
             {
                 new ProviderEntity
                 {
-                    IdProvider = Guid.Parse("ee98a9db-1443-4491-b470-cca353138848"),
+                    IdProvider = Guid.Parse("ee98a9db-1443-4491-b470-cca353138847"),
                     FirstName = "Lenny",
                     SecondName = "Alexander",
                     FirstLastName = "Trejos",
@@ -224,7 +224,7 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Provide
 
             var service = new ServiceCollection();
             service.ConfigureAdministrationService(new DbSettings());
-            service.AddTransient(_ =>providerRepoMock.Object);
+            service.AddTransient(_ => providerRepoMock.Object);
             var provider = service.BuildServiceProvider();
             var providerService = provider.GetRequiredService<IProviderService>();
 
@@ -244,10 +244,61 @@ namespace InformationManagement.Test.Core.Aplicacion.Administration.Core.Provide
 
             await Assert.ThrowsAsync<NitProviderAlreadyExist>(() => providerService.AddProvider(providers)).ConfigureAwait(false);
         }
+        
+        [Fact]
+        [UnitTest]
+        public async Task Provider_With_The_Same_Id_Is_Not_Permitted()
+        {
+            var providerRepoMock = new Mock<IProviderRepositorio>();
 
-        //[Fact]
-        //[UnitTest]
+            var listProvider = new List<ProviderEntity>
+            {
+                new ProviderEntity
+                {
+                    IdProvider = Guid.Parse("3dcf7212-0984-4f61-b2b3-8f1c12120fec"),
+                    //job = "Admin",
+                    FirstName = "Lenny",
+                    SecondName = "Alexander",
+                    FirstLastName = "Trejos",
+                    SecondLastName = "Bermúez",
+                    KindOfPerson = KindOfPerson.Natural,
+                    //Salary = 1000000,
+                    DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
+                    SignUpDate = DateTimeOffset.Parse("12-02-2020"),
+                    TypeDocument = TypeDocument.Nit,
+                    NitCompany = Guid.Parse("cd61bfc6-3ad9-4d47-8e83-7e3eb4b86c6f"),
+                    CompanyName = "SYP_",
+                }
+            };
+            providerRepoMock
+                .Setup(m => m.GetAll<ProviderEntity>())
+                .Returns(listProvider);
 
+            var service = new ServiceCollection();
+            service.ConfigureAdministrationService(new DbSettings());
+            service.AddTransient(_ => providerRepoMock.Object);
+            var provider = service.BuildServiceProvider();
+            var providerService = provider.GetRequiredService<IProviderService>();
+
+            var providers = new ProviderDto
+            {
+                IdProvider = Guid.Parse("3dcf7212-0984-4f61-b2b3-8f1c12120fec"),
+                //job = "Admin",
+                FirstName = "Lenn",
+                SecondName = "Alexander",
+                FirstLastName = "Trejos",
+                SecondLastName = "Bermúdez",
+                TypePerson = TypeOfPerson.Natural,
+                //Salary = 1000000,
+                DateOfBirth = DateTimeOffset.Parse("28-05-1992"),
+                SignUpDate = DateTimeOffset.Parse("12-02-2020"),
+                CompanyName = "SYP",
+                NitCompany = Guid.Parse("cd81bfc6-3ad9-4d47-8e83-7e3eb4b86c6f"),
+                TypeDocument = Type_Document.Pasaporte
+            };
+
+            await Assert.ThrowsAsync<IdProviderEmployeeAlreadyExist>(() => providerService.AddProvider(providers)).ConfigureAwait(false);
+        }
 
 
         [Fact]
